@@ -8,8 +8,18 @@ double k_arctg(double x, int n) {
 
 int main(void) {
   result res;
-  res = taylor_series_calculate(k_arctg, 0.5, 0.5);
-  printf("arctg(%f) = %f (math.h function)\n", 0.5, atan(0.5));
-  printf("arctg(%f) = %f (took %d iteration(s).)\n", 0.5, res.res, res.iter_cnt);
+  double a = 0, b = 0.5;
+  int n;
+  printf("Input n: ");
+  scanf("%d", &n);
+  printf("\n");
+  printf("+---------+------------------------+-----------------+----------------------+\n");
+  printf("|    x    | Taylor series arctg(x) | math.h arctg(x) | Amount of iterations |\n");
+  printf("+---------+------------------------+-----------------+----------------------+\n"); 
+  for (double x = a; x <= b; x += (b - a) / (1.0 * n)) {
+    res = taylor_series_calculate(k_arctg, x, x);
+    printf("|%9f|%24f|%17f|%22d|\n", x, atan(x), res.res, res.iter_cnt);
+    printf("+---------+------------------------+-----------------+----------------------+\n");
+  }
   return 0;
 }
